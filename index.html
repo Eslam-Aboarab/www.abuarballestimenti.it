@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abuarb Allestimenti</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0b2545;
+            --accent-blue: #134074;
+            --brand-orange: #f26419;
+            --brand-amber: #f6ae2d;
+            --wood-tone: #8d5b4c;
+            --light-bg: #f8f9fa;
+            --dark-text: #1d2d44;
+            --muted-text: #6c757d;
+            --white: #ffffff;
+            --border-color: #e9ecef;
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--dark-text); background-color: var(--white); line-height: 1.6; }
+        h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+
+        /* HEADER & NAV */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background-color: rgba(11, 37, 69, 0.95);
+            backdrop-filter: blur(10px); z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15); padding: 12px 0;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .logo-container:hover { opacity: 0.9; }
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--brand-orange);
+        }
+        .logo-text { font-size: 1.4rem; font-weight: 800; color: var(--white); letter-spacing: 1px; }
+        .logo-text span { color: var(--brand-orange); }
+        .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .nav-links a { color: var(--white); font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+        .nav-links a:hover { color: var(--brand-orange); }
+        .lang-switch {
+            background-color: var(--brand-orange); color: var(--white); border: none;
+            padding: 8px 16px; border-radius: 4px; font-weight: 700; cursor: pointer;
+            transition: var(--transition); display: flex; align-items: center; gap: 6px;
+        }
+        .lang-switch:hover { background-color: #d9530f; }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 85vh;
+            background: linear-gradient(rgba(11, 37, 69, 0.6), rgba(11, 37, 69, 0.7)), url('images/hero-bg.jpg') no-repeat center center;
+            background-size: 100% 100%;
+            display: flex; align-items: center; text-align: center; color: var(--white);
+            margin-top: 70px; padding: 80px 20px;
+        }
+        .hero-content { max-width: 900px; margin: 0 auto; z-index: 2; position: relative; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
+        .hero p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.95; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        .btn-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 14px 32px; font-weight: 700; border-radius: 4px; transition: var(--transition); display: inline-block; }
+        .btn-primary { background-color: var(--brand-orange); color: var(--white); border: none; }
+        .btn-primary:hover { background-color: #d9530f; transform: translateY(-2px); }
+        .btn-outline { border: 2px solid var(--white); color: var(--white); }
+        .btn-outline:hover { background-color: var(--white); color: var(--primary-blue); transform: translateY(-2px); }
+
+        /* SECTIONS GENERAL */
+        section { padding: 80px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.2rem; color: var(--primary-blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .section-title p { color: var(--muted-text); max-width: 600px; margin: 0 auto; }
+
+        /* ABOUT SECTION */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .about-card {
+            background: var(--light-bg); padding: 35px; border-radius: 8px;
+            border-left: 5px solid var(--brand-orange); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .about-card h3 { color: var(--primary-blue); margin-bottom: 15px; font-size: 1.5rem; }
+
+        /* SERVICES */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card {
+            background-color: var(--white); border: 1px solid var(--border-color);
+            padding: 30px; border-radius: 8px; text-align: center; transition: var(--transition);
+        }
+        .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--brand-orange); }
+        .service-card i { font-size: 2.5rem; color: var(--brand-orange); margin-bottom: 20px; }
+        .service-card h3 { color: var(--primary-blue); margin-bottom: 15px; }
+
+        /* PORTFOLIO SLIDER WRAPPER */
+        .portfolio-slider-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-slider-wrapper {
+            width: 100%;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-rows: repeat(2, auto);
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(350px, 1fr);
+            gap: 25px;
+            transition: transform 0.4s ease-in-out;
+            will-change: transform;
+        }
+
+        .portfolio-item {
+            position: relative; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); background-color: var(--light-bg);
+            width: 350px;
+        }
+        .portfolio-item img { width: 100%; height: 220px; object-fit: cover; display: block; transition: var(--transition); }
+        .portfolio-item:hover img { transform: scale(1.05); }
+        .portfolio-info { padding: 15px 20px; background: var(--white); }
+        .portfolio-info h4 { color: var(--primary-blue); font-size: 1.1rem; margin-bottom: 5px; }
+        .portfolio-info p { color: var(--brand-orange); font-weight: 600; font-size: 0.85rem; }
+
+        /* SLIDER BUTTONS */
+        .slider-btn {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+            margin: 0 10px;
+        }
+        .slider-btn:hover {
+            background-color: var(--brand-orange);
+            transform: scale(1.1);
+        }
+
+        /* CONTACT & QUOTE */
+        .contact-section { background-color: var(--light-bg); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; }
+        .contact-info { display: flex; flex-direction: column; gap: 20px; }
+        .info-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+        .info-box:hover {
+            background-color: rgba(242, 100, 25, 0.05);
+            transform: translateX(5px);
+        }
+        .info-box i {
+            font-size: 1.4rem;
+            color: var(--brand-orange);
+            background: var(--white);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            flex-shrink: 0;
+        }
+        .info-box h4 { font-size: 1.05rem; color: var(--primary-blue); margin-bottom: 2px; }
+        .info-box p { font-size: 0.95rem; color: var(--dark-text); }
+
+        .quote-form { background: var(--white); padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .form-group { margin-bottom: 20px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--primary-blue); }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px; border: 1px solid var(--border-color);
+            border-radius: 4px; font-family: inherit; font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--brand-orange);
+            box-shadow: 0 0 5px rgba(242, 100, 25, 0.2);
+        }
+
+        /* FOOTER */
+        footer { background-color: var(--primary-blue); color: var(--white); padding: 40px 20px; text-align: center; border-top: 3px solid var(--brand-orange); }
+
+        @media (max-width: 768px) {
+            .about-grid, .contact-grid, .form-row { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            .portfolio-grid { grid-template-rows: auto; grid-auto-flow: row; grid-auto-columns: 100%; }
+            .portfolio-item { width: 100%; }
+            .slider-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                <img src="images/logo.jpg" alt="Abuarb Logo" class="logo-img">
+                <div class="logo-text">ABUARB <span>ALLESTIMENTI</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" data-i18n="nav_home">Inizio</a></li>
+                <li><a href="#about" data-i18n="nav_about">Chi Siamo</a></li>
+                <li><a href="#services" data-i18n="nav_services">Servizi</a></li>
+                <li><a href="#portfolio" data-i18n="nav_portfolio">Portfolio</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Contatti</a></li>
+            </ul>
+            <button class="lang-switch" onclick="toggleLanguage()">
+                <i class="fa-solid fa-globe"></i> <span id="langText">EN</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="hero_title">Dalla Progettazione all'Esecuzione: Stand Fieristici su Misura in tutta Europa</h1>
+            <p data-i18n="hero_subtitle">Soluzioni "chiavi in mano" per allestimenti fieristici: design 3D innovativo, produzione di precisione e gestione cantiere impeccabile.</p>
+            <div class="btn-group">
+                <a href="#portfolio" class="btn btn-primary" data-i18n="hero_btn1">Esplora i Nostri Progetti</a>
+                <a href="#contact" class="btn btn-outline" data-i18n="hero_btn2">Richiedi un Preventivo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="about_heading">Chi Siamo</h2>
+                <p data-i18n="about_subheading">Eccellenza artigianale e precisione ingegneristica per il tuo brand in fiera.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3 data-i18n="about_company_title">L'Azienda</h3>
+                    <p data-i18n="about_company_text">
+                        Abuarb Allestimenti è un'azienda dinamica specializzata nella progettazione, realizzazione ed esecuzione di allestimenti fieristici, stand personalizzati ed architetture temporanee per eventi. Con sede a Milano e attiva in tutta Italia e nell'Unione Europea, uniamo visione creativa, precisione artigianale e solide competenze tecniche per trasformare concetti complessi in spazi espositivi di grande impatto visivo e funzionale.
+                    </p>
+                </div>
+                <div class="about-card">
+                    <h3 data-i18n="about_leader_title">La Leadership</h3>
+                    <p data-i18n="about_leader_text">
+                        In qualità di fondatore e CEO di Abuarb Allestimenti, <strong>Abdallah Abuarab</strong> unisce il suo ruolo di Exhibition Designer alla gestione strategica ed esecutiva di progetti fieristici internazionali. Dirige le operazioni a 360 gradi: dalla ideazione di concept interattivi e layout su misura fino al coordinamento logistico, alla risoluzione di sfide ingegneristiche in cantiere e alla consegna finale "chiavi in mano".
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" style="background-color: var(--light-bg);">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="services_heading">I Nostri Servizi</h2>
+                <p data-i18n="services_subheading">Un servizio completo chiavi in mano per una gestione senza stress.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fa-solid fa-compass-drafting"></i>
+                    <h3 data-i18n="serv1_title">Progettazione & Design 3D</h3>
+                    <p data-i18n="serv1_text">Ideazione di concept espositivi unici, layout funzionali e rendering 3D ad alta definizione progettati per valorizzare il brand.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-hammer"></i>
+                    <h3 data-i18n="serv2_title">Produzione Interna</h3>
+                    <p data-i18n="serv2_text">Lavorazione del legno, strutture modulari e finiture artigianali eseguite con i più alti standard di qualità e cura dei dettagli.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-truck-ramp-box"></i>
+                    <h3 data-i18n="serv3_title">Montaggio & Smontaggio</h3>
+                    <p data-i18n="serv3_text">Gestione cantiere completa, logistica, assemblaggio in loco e smontaggio in tutti i principali poli fieristici d'Italia ed Europa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SHOWCASE WITH SLIDER BUTTONS -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="portfolio_heading">I Nostri Progetti</h2>
+                <p data-i18n="portfolio_subheading">Una selezione completa degli allestimenti realizzati nei principali eventi internazionali.</p>
+            </div>
+
+            <div class="portfolio-slider-container">
+                <button class="slider-btn" onclick="slidePortfolio(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                
+                <div class="portfolio-slider-wrapper">
+                    <div class="portfolio-grid" id="portfolioGrid">
+                        <!-- INOUT EXHIBITION - KARISMA & MATRIX -->
+                        <div class="portfolio-item">
+                            <img src="images/karisma-inout.jpg" alt="Karisma Stand InOut">
+                            <div class="portfolio-info">
+                                <h4>Karisma Dress Your Hotel</h4>
+                                <p>InOut | Hospitality & Hotel Furniture Pavilion</p>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item">
+                            <img src="images/matrix-onyx.jpg" alt="Matrix Onyx Stand InOut">
+                            <div class="portfolio-info">
+                                <h4>Matrix / Onyx Fitness</h4>
+                                <p>InOut | Wellness & Sports Exhibition Stand</p>
+                            </div>
+                        </div>
+
+                        <!-- MCE MILANO & OTHERS -->
+                        <div class="portfolio-item">
+                            <img src="images/tekno-point.jpg" alt="Tekno Point Stand">
+                            <div class="portfolio-info">
+                                <h4>Tekno Point</h4>
+                                <p>MCE Milano | Turnkey Exhibition Stand</p>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item">
+                            <img src="images/ursa-air.jpg" alt="URSA AIR Stand">
+                            <div class="portfolio-info">
+                                <h4>URSA AIR</h4>
+                                <p>MCE Milano | Overhead Hanging Structure</p>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item">
+                            <img src="images/faes-switches.jpg" alt="FAES Stand">
+                            <div class="portfolio-info">
+                                <h4>FAES Floating Switches</h4>
+                                <p>MCE Milano | Backlit Lightbox & Display</p>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item">
+                            <img src="images/mastercool.jpg" alt="Mastercool Stand">
+                            <div class="portfolio-info">
+                                <h4>Mastercool Inc.</h4>
+                                <p>MCE Milano | Industrial Wooden Slat Stand</p>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item">
+                            <img src="images/trevitech.jpg" alt="Trevitech Stand">
+                            <div class="portfolio-info">
+                                <h4>Trevitech</h4>
+                                <p>MCE Milano | Glossy White Exhibition Pavilion</p>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item">
+                            <img src="images/brahma.jpg" alt="Brahma Stand">
+                            <div class="portfolio-info">
+                                <h4>BRAHMA</h4>
+                                <p>MCE Milano | HVAC Custom Display</p>
+                            </div>
+                        </div>
+
+                        <div class="portfolio-item">
+                            <img src="images/euroblech-hannover.jpg" alt="EuroBLECH Hannover">
+                            <div class="portfolio-info">
+                                <h4>EuroBLECH Hannover</h4>
+                                <p>Germany | International Trade Fair</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="slider-btn" onclick="slidePortfolio(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & INTERACTIVE QUOTE FORM -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="contact_heading">Contatti & Preventivo</h2>
+                <p data-i18n="contact_subheading">Inizia a pianificare il tuo prossimo stand fieristico con noi.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- INTERACTIVE CONTACT INFO CARDS -->
+                <div class="contact-info">
+                    <div class="info-box">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Sede Operativa</h4>
+                            <p>Milano, Italia (Operativi in tutta UE)</p>
+                        </div>
+                    </div>
+                    
+                    <a href="mailto:abdallahaboarab24@gmail.com" class="info-box" title="Invia un'email">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>abdallahaboarab24@gmail.com</p>
+                        </div>
+                    </a>
+
+                    <a href="https://wa.me/393891683851" target="_blank" class="info-box" title="Chatta su WhatsApp">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>Telefono / WhatsApp</h4>
+                            <p>+39 389 1683851</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.instagram.com/abuarb_allestimenti" target="_blank" class="info-box" title="Seguici su Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                        <div>
+                            <h4>Instagram</h4>
+                            <p>@abuarb_allestimenti</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.linkedin.com/company/abuarb-allestimenti" target="_blank" class="info-box" title="Connettiti su LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <p>Abuarb Allestimenti</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- LIVE FORMSPREE EMAIL FORM -->
+                <div class="quote-form">
+                    <form action="https://formspree.io/f/xqppyqvj" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-i18n="form_name">Full Name / Company</label>
+                                <input type="text" name="Company_Name" required placeholder="Es. Rossi S.r.l.">
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="form_email">Email</label>
+                                <input type="email" name="_replyto" required placeholder="nome@azienda.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-i18n="form_fiera">Trade Show Name</label>
+                                <input type="text" name="Trade_Show_Name" placeholder="Es. InOut, MCE, Salone del Mobile">
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="form_sqm">Stand Area (SQM)</label>
+                                <input type="number" name="Stand_Area_SQM" placeholder="Es. 50">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-i18n="form_msg">Project Details / Budget</label>
+                            <textarea name="Project_Details" rows="4" placeholder="Descrivi le tue esigenze..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; cursor: pointer;" data-i18n="form_btn">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Abuarb Allestimenti - Tutti i diritti riservati. Milano, Italia.</p>
+        </div>
+    </footer>
+
+    <!-- TRANSLATION & SLIDER SCRIPT -->
+    <script>
+        let currentLang = 'it';
+
+        const i18n = {
+            it: {
+                nav_home: "Inizio",
+                nav_about: "Chi Siamo",
+                nav_services: "Servizi",
+                nav_portfolio: "Portfolio",
+                nav_contact: "Contatti",
+                hero_title: "Dalla Progettazione all'Esecuzione: Stand Fieristici su Misura in tutta Europa",
+                hero_subtitle: "Soluzioni 'chiavi in mano' per allestimenti fieristici: design 3D innovativo, produzione di precisione e gestione cantiere impeccabile.",
+                hero_btn1: "Esplora i Nostri Progetti",
+                hero_btn2: "Richiedi un Preventivo",
+                about_heading: "Chi Siamo",
+                about_subheading: "Eccellenza artigianale e precisione ingegneristica per il tuo brand in fiera.",
+                about_company_title: "L'Azienda",
+                about_company_text: "Abuarb Allestimenti è un'azienda dinamica specializzata nella progettazione, realizzazione ed esecuzione di allestimenti fieristici, stand personalizzati ed architetture temporanee per eventi. Con sede a Milano e attiva in tutta Italia e nell'Unione Europea, uniamo visione creativa, precisione artigianale e solide competenze tecniche per trasformare concetti complessi in spazi espositivi di grande impatto visivo e funzionale.",
+                about_leader_title: "La Leadership",
+                about_leader_text: "In qualità di fondatore e CEO di Abuarb Allestimenti, Abdallah Abuarab unisce il suo ruolo di Exhibition Designer alla gestione strategica ed esecutiva di progetti fieristici internazionali. Dirige le operazioni a 360 gradi: dalla ideazione di concept interattivi e layout su misura fino al coordinamento logistico, alla risoluzione di sfide ingegneristiche in cantiere e alla consegna finale 'chiavi in mano'.",
+                services_heading: "I Nostri Servizi",
+                services_subheading: "Un servizio completo chiavi in mano per una gestione senza stress.",
+                serv1_title: "Progettazione & Design 3D",
+                serv1_text: "Ideazione di concept espositivi unici, layout funzionali e rendering 3D ad alta definizione progettati per valorizzare il brand.",
+                serv2_title: "Produzione Interna",
+                serv2_text: "Lavorazione del legno, strutture modulari e finiture artigianali eseguite con i più alti standard di qualità e cura dei dettagli.",
+                serv3_title: "Montaggio & Smontaggio",
+                serv3_text: "Gestione cantiere completa, logistica, assemblaggio in loco e smontaggio in tutti i principali poli fieristici d'Italia ed Europa.",
+                portfolio_heading: "I Nostri Progetti",
+                portfolio_subheading: "Una selezione completa degli allestimenti realizzati nei principali eventi internazionali.",
+                contact_heading: "Contatti & Preventivo",
+                contact_subheading: "Inizia a pianificare il tuo prossimo stand fieristico con noi.",
+                form_name: "Nome e Cognome / Azienda",
+                form_email: "Email",
+                form_fiera: "Nome della Fiera",
+                form_sqm: "Superficie Stand (MQ)",
+                form_msg: "Dettagli del Progetto / Budget",
+                form_btn: "Invia la Richiesta"
+            },
+            en: {
+                nav_home: "Home",
+                nav_about: "About Us",
+                nav_services: "Services",
+                nav_portfolio: "Portfolio",
+                nav_contact: "Contact Us",
+                hero_title: "From Design to Execution: Custom Exhibition Stands Across Europe",
+                hero_subtitle: "Turnkey exhibition stand solutions: innovative 3D design, precision crafting, and flawless on-site project management.",
+                hero_btn1: "Explore Our Projects",
+                hero_btn2: "Request a Quote",
+                about_heading: "About Us",
+                about_subheading: "Craftsmanship excellence and engineering precision for your brand at trade shows.",
+                about_company_title: "The Company",
+                about_company_text: "Abuarb Allestimenti is a dynamic company specialized in the design, production, and execution of custom exhibition stands and temporary event architectures. Based in Milan and active across Italy and the EU, we combine creative vision, artisan craftsmanship, and solid technical skills to transform complex concepts into high-impact, functional exhibition spaces.",
+                about_leader_title: "Leadership",
+                about_leader_text: "As founder and CEO of Abuarb Allestimenti, Abdallah Abuarab combines his role as Exhibition Designer with strategic and executive management of international trade show projects. He oversees operations at 360 degrees: from interactive concept creation and tailored layouts to logistics coordination, structural problem-solving on site, and final turnkey delivery.",
+                services_heading: "Our Services",
+                services_subheading: "A full turnkey service for stress-free management.",
+                serv1_title: "3D Design & Concept",
+                serv1_text: "Creation of unique exhibition concepts, functional layouts, and high-definition 3D renders tailored to elevate brand identity.",
+                serv2_title: "In-House Production",
+                serv2_text: "Woodworking, modular structures, and artisan finishes executed with the highest quality standards and attention to detail.",
+                serv3_title: "Assembly & Dismantling",
+                serv3_text: "Complete site management, logistics, on-site assembly, and dismantling across all major exhibition centers in Italy and Europe.",
+                portfolio_heading: "Our Projects",
+                portfolio_subheading: "A complete selection of exhibition stands delivered at major international events.",
+                contact_heading: "Contact & Quote Request",
+                contact_subheading: "Start planning your next exhibition stand with us.",
+                form_name: "Full Name / Company",
+                form_email: "Email",
+                form_fiera: "Trade Show Name",
+                form_sqm: "Stand Area (SQM)",
+                form_msg: "Project Details / Budget",
+                form_btn: "Submit Request"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'it' ? 'en' : 'it';
+            document.getElementById('langText').innerText = currentLang === 'it' ? 'EN' : 'IT';
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[currentLang][key]) {
+                    el.innerText = i18n[currentLang][key];
+                }
+            });
+        }
+
+        // Portfolio Slider Script
+        let scrollPosition = 0;
+        function slidePortfolio(direction) {
+            const grid = document.getElementById('portfolioGrid');
+            const scrollAmount = 380; // card width + gap
+            scrollPosition += direction * scrollAmount;
+            
+            const maxScroll = grid.scrollWidth - grid.clientWidth;
+            if (scrollPosition < 0) scrollPosition = 0;
+            if (scrollPosition > maxScroll) scrollPosition = maxScroll;
+
+            grid.style.transform = `translateX(-${scrollPosition}px)`;
+        }
+    </script>
+</body>
+</html>
